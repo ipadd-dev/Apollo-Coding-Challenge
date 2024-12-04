@@ -24,6 +24,19 @@ This project is built using JavaScript and utilizes the Node.js and Express.js l
         </ol>
 </ol>
 
+## Project Structure
+
+The project is organized as follows:
+
+- **app/**: Contains the main application code.
+  - **db.js**: Handles database operations for the Vehicle entity.
+  - **generateVin.js**: Contains a function that generates random VIN numbers.
+  - **server.js**: The entry point of the application.
+  - **utils.js**: A place to store utility functions that are used throughout our application.
+  - **validation.js**: Contains validation logic for the Vehicle entity.
+- **env.json**: Contains the environment variables used to setup the PostgreSQL database.
+- **package.json**: Contains metadata about the project, dependencies, and scripts for the application.
+- **setup.sql**: SQL script to set up the PostgreSQL database and create the necessary tables. You will see how it is used in the Quick Start section.
 
 ## Quick Start
 ### Pre-requisites
