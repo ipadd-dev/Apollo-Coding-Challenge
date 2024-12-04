@@ -3,10 +3,23 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install": "npm install express pg",
+    "setup-db": "psql -U postgres -f setup.sql",
+    "drop-table": "psql -U postgres -f dropTable.sql",
+    "start": "cd app && node server.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mocha": "^11.0.1",
+    "pg": "^8.13.1",
+    "supertest": "^7.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.5.0"
+  }
 }
