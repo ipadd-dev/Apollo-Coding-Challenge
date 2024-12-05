@@ -91,8 +91,7 @@ app.delete("/vehicle/:vin", async (req, res) => {
     }
 
     await db.deleteVehicle(vin);
-    res.statusCode = 204;
-    return res.send();
+    return res.sendStatus(204);
 });
 
 app.listen(port, hostname, () => { 
