@@ -1,17 +1,14 @@
-const e = require("express");
-
+const { isEmptyObject } = require("./utils");
 function validateVehicle(vehicle) {
     let message = {
         status: 200,
         errors: {}
     };
 
-    console.log(vehicle);
-
     // making sure that the vehicle object exists
-    if (vehicle == null || typeof vehicle !== "object") {
+    if (vehicle == null || typeof vehicle !== "object" || isEmptyObject(vehicle)) {
         message.status = 400;
-        message.errors["invalidObject"] = ["Please provide a valid vehicle object that is in JSON format."];
+        message.errors["invalidObject"] = ["Please provide a valid vehicle object as a JSON."];
         return message;
     }
 
@@ -75,7 +72,6 @@ function validateVin(vin) {
         
         // a vin can only contain capital letters (besides I, O, Q) and 0-9 digits
         let pattern = /^[A-HJ-NPR-Z0-9]+$/
-        console.log(vin,vin.match(pattern));
 
         if (vin.match(pattern) === null) {
             errors.push("A VIN can only contain capital letters (excluding I,O,Q) and digits from 0-9.");
