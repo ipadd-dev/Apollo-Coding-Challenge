@@ -1,6 +1,15 @@
-const { Pool } = require("pg");
+const { Pool, types } = require("pg");
 const env = require("../env.json");
 const generateVin = require("./generateVin");
+
+// during testing, I found that the DECIMAL and NUMERIC types are returned as string in the pg library (due to precision limitations in Number type in JS)
+// because of this, I have to add a custom type parser to convert these strings to numbers.
+// The only side effect is that we assume DECIMAL values will never grow large enough to cause precision loss or not fit in the Number type
+function parseDecimalType(value) {
+    return parseFloat(value);
+}
+
+types.setTypeParser(1700, parseDecimalType);
 
 // creating a new pool object that will be used to connect to the database
 const pool = new Pool({
@@ -12,13 +21,13 @@ const pool = new Pool({
 });
 
 async function getVehicles() {
-    const query = "SELECT * FROM vehicle";
+    const query = `SELECT * FROM "Vehicle"`;
     const res = await pool.query(query);
     return res.rows;
 }
 
 async function getVehicle(vin) {
-    const text = "SELECT * FROM vehicle WHERE vin = $1";
+    const text = `SELECT * FROM "Vehicle" WHERE vin = $1`;
     const values = [vin];
     const res = await pool.query(text, values);
 
@@ -29,7 +38,7 @@ async function addVehicle(vehicle) {
     // I do not directly insert values into the query to prevent sql injection
     // in the library I am using, we can put placeholders in the query and then provide list of values, and it safely fetches data using these values
     const text = `
-        INSERT INTO vehicle
+        INSERT INTO "Vehicle"
         VALUES
         ($1,$2,$3,$4,$5,$6,$7,$8)
         RETURNING *
@@ -66,14 +75,14 @@ async function persistentAddVehicle(vehicle) {
 
 async function updateVehicle(vin, vehicle) {
     const text = `
-        UPDATE vehicle
-        SET manufacturer_name = $1,
-            description = $2,
-            horse_power = $3,
-            model_name = $4,
-            model_year = $5,
-            purchase_price = $6,
-            fuel_type = $7
+        UPDATE "Vehicle"
+        SET "manufacturerName" = $1,
+            "description" = $2,
+            "horsePower" = $3,
+            "modelName" = $4,
+            "modelYear" = $5,
+            "purchasePrice" = $6,
+            "fuelType" = $7
         WHERE vin = $8
         RETURNING *
     `;
@@ -93,7 +102,7 @@ async function updateVehicle(vin, vehicle) {
 }
 
 async function deleteVehicle(vin) {
-    const text = "DELETE FROM vehicle WHERE vin = $1 RETURNING *";
+    const text = `DELETE FROM "Vehicle" WHERE vin = $1 RETURNING *`;
     const values = [vin];
     const res = await pool.query(text, values);
     return res.rows[0];
