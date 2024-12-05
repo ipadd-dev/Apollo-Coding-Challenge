@@ -102,6 +102,7 @@ This should start the application on port 3000 ([http://localhost:3000](http://l
 
 ## Testing
 _Before starting with tests, please make sure that you are using v4.5.0 for chai. My application and testing did not work with versions > v5.0.0 as chai switched from using CommonJS to ESM in newer versions, and since my app uses CommonJS, the imports and exports would not work._
+
 I have written a test suite that tests our API endpoints using ``chai``, ``mocha``, and ``supertest`` and is operatable through CLI. In general, the tests make sure that all of our API behave correctly. Additionally, when bad or malformed data is sent, it makes sure that the API calls return back with correct status codes (400, 422) and return JSON-formatted errors.
 To run the tests, go to the root directory of the project and run the command ``npm run test``. This should give you an overview of all the tests and if they passed/failed. Here is a sample image from my testing:
 
