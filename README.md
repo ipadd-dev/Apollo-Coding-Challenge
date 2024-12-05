@@ -107,3 +107,9 @@ I have written a test suite that tests our API endpoints using ``chai``, ``mocha
 To run the tests, go to the root directory of the project and run the command ``npm run test``. This should give you an overview of all the tests and if they passed/failed. Here is a sample image from my testing:
 
 ![image](https://github.com/user-attachments/assets/a3b0ad5a-5198-4f64-9dcb-e33965925adc)
+
+## Future Improvements
+These are some places where my application could improve and it would lead to an overall better experience and a more robust system.
+
+### Generating accurate VINs
+After doing some research on VINs, I found that each digit and letter has a specific meaning and these VINs are not fully random after all. Due to the scope and time limitations of this project, I did not create a function that generates an accurate VIN and resorted for a randomized VIN generator. The randomized VIN generator works for small scale usages but it will struggle in real-world scenarios. Since we already collect vehicle information like ``manufacturer``, ``modelName``, ``modelYear``, ``fuelType`` etc, we can use these to VINs that are more accurate and reflect these data points. The VIN would still be semi-random since we do not have other data needed to complete the VIN.
