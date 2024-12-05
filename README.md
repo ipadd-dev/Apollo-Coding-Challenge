@@ -74,6 +74,7 @@ Please modify the base [env.json](./env.json) file to define environment variabl
     "HOST": YOUR_HOSTNAME,
     "PORT": PORT,
     "DATABASE": "apollo"
+}
 ```
 
 Here is what each field represents:
